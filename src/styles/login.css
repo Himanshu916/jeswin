@@ -1,0 +1,14 @@
+.flex-column
+{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+}
+
+.login-middle
+{
+    height:55vh;
+    padding:2rem 0;
+    border-bottom:1px solid black
+}
