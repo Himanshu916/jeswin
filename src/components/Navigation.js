@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import CloseIcon from '@material-ui/icons/Close';
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 import {Link,useNavigate} from "react-router-dom"
 import { SideBarData } from '../utils/SideBarData';
@@ -28,7 +29,7 @@ import { SideBarData } from '../utils/SideBarData';
                 <ul onClick={showSideBar} className="nav-menu-items">
                     <li className="navbar-toggle">
                         <Link className="menu-bars" to="#">
-                            Close
+                           <CloseIcon style={{color:"red"}} />
                         </Link>
                     </li>
                     {
