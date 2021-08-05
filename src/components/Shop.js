@@ -1,6 +1,33 @@
-import React from 'react'
-
+import React,{useState,useEffect} from 'react'
+import { useNavigate,useParams } from "react-router-dom"
+import axios from 'axios'
+import { useAuth } from '../contexts/authContext'
  const Shop = () => {
+     const [shopProducts,setShopProducts] = useState([])
+     const {id} = useParams();
+    
+     const navigate = useNavigate()
+     const {token} = useAuth();
+     
+     useEffect(()=>
+     {
+        
+         (async()=>
+         {
+            
+             try{
+                const response = await axios.get("https://tranquil-escarpment-64779.herokuapp.com/seller/products/"+id,{headers:{"x-access-token":token}})
+                 
+                 if(response.status===200)
+                 setShopProducts(response.data)
+             }catch(error)
+             {
+                    console.log(error.response.data.message)
+             }
+
+         })()
+     },[id])
+  
     return (
       <>
       <div className="shopName">
@@ -18,32 +45,26 @@ import React from 'react'
        <div className="home-bottom">
                
                 <div className="home-cards">
-                    <div className="home-card">
+                {
+                    shopProducts.map(product=>
+                    {
+                        return (
+                            <div key={product.id} className="home-card">
                         <div style={{width:"50px",height:"60px",backgroundColor:"red"}}>
                             
                         </div>
                         <div className="home-card--content">
-                            <h2> Door Handle set 2</h2>
-                            <h3> Rs.579.00 </h3>
+                            <h2>{product.name}</h2>
+                            <h3> {product.price} </h3>
                             <div className="buttons">
-                                <button>view </button>
+                                <button onClick={()=>navigate(`/home/product/${product.id}`)}>view </button>
                                 <button> Call</button>
                             </div>
                         </div>
                     </div>
-                    <div className="home-card">
-                        <div style={{width:"50px",height:"60px",backgroundColor:"red"}}>
-                            
-                        </div>
-                        <div className="home-card--content">
-                            <h2> Door Handle set 3</h2>
-                            <h3> Rs.579.00 </h3>
-                            <div className="buttons">
-                                <button>view </button>
-                                <button>Call</button>
-                            </div>
-                        </div>
-                    </div>
+                        )
+                    })
+                }
                 </div>
             </div>
       </>

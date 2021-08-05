@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Button from '@material-ui/core/Button';
 import { Link,useNavigate } from "react-router-dom";
 import {useAuth} from "../contexts/authContext"
@@ -12,28 +12,22 @@ const Login = () => {
     const [error,setError] = useState("")
     const [loading,setLoading] = useState(false)
     const {email,phone,password} = details;
-    const {user,signIn} = useAuth();
+    const {user,signIn,isUserLoggedIn,role} = useAuth();
     const navigate=useNavigate();
-    
-    const submitHandler=async (e)=>
+    useEffect(()=>
+    {
+     
+        if(isUserLoggedIn)
+        navigate("/home")
+    },[isUserLoggedIn])
+
+    const submitHandler=(e)=>
     {
     
         e.preventDefault()
-        console.log(email,password,"to login")
+        
        
-        try{
-          setError('')
-          setLoading(true)
-          await signIn(email,password);
-          navigate("/home")
-
-        }
-        catch
-        {
-          setError("Unable to signin")
-          }
-          setLoading(false)
-    
+        signIn(email,password);
     
     }
 

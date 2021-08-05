@@ -7,9 +7,11 @@ import {Routes,Route} from "react-router-dom"
 import Shop from "./Shop"
 import Product from "./Product"
 import Cart from "./Cart"
+import SellerDashBoard from "./SellerDashBoard"
 const Home = () => {
-const {signOut} = useAuth();
+const {signOut,role} = useAuth();
 const navigate = useNavigate();
+
 
 
 async function clickHandler(){
@@ -29,9 +31,10 @@ async function clickHandler(){
         <div>
             <Navigation/>
             <Routes>
-                <Route path="/" element={<HomeLanding/>} />
-                <Route path="/shop" element={<Shop/>} />
-                <Route path="/product" element={<Product/>} />
+                {role==="buyer" && <Route path="/" element={<HomeLanding/>} />}
+                {role==="seller" && <Route path="/*" element={<SellerDashBoard/>} />}
+                <Route path="/shop/:id" element={<Shop/>} />
+                <Route path="/product/:id" element={<Product/>} />
                 <Route path="/cart" element={<Cart/>} />
             </Routes> 
             Home

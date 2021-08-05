@@ -1,20 +1,27 @@
+
 import React,{useEffect,useState} from 'react'
-import { useNavigate } from "react-router-dom"
+import AddStock from './AddStock';
+import { Routes,Route,useNavigate} from "react-router-dom"
 import axios from "axios"
 import { useAuth } from '../contexts/authContext'
-export const HomeLanding = () => {
+import Staff from './Staff';
+import StaffRegister from './StaffRegister';
+
+const SellerHome = ()=>
+{
     const [shops,setShops] = useState([])
     const {token} = useAuth()
     const navigate = useNavigate()
+
     useEffect(()=>
     {
-        
+        // console.log(token,"in shop")
         (async ()=>
         {
             try
             {
-                const response =await axios.get("https://tranquil-escarpment-64779.herokuapp.com/sellers",{headers:{"x-access-token":token}})
-               
+                const response =await axios.get("https://tranquil-escarpment-64779.herokuapp.com/products",{headers:{"x-access-token":token}})
+                console.log(response)
                 setShops(response.data)
             }catch(error)
             {
@@ -23,10 +30,10 @@ export const HomeLanding = () => {
         })()
     },[token])
     return (
-       <>
-       <div>
+        <>
+         <div>
                 <h3 className="greeting">
-                    Hi Prakash
+                    Hi R.N Enterprises
                 </h3>
                 <p className="interacting">
                     What are you looking for today ?
@@ -38,9 +45,12 @@ export const HomeLanding = () => {
             </div>
             <div className="home-bottom">
                 <div className="buttons">
-                    <button>Sellers</button>
-                    <button>My Orders</button>
+                    <button>Orders</button>
+                    <button>Stocks</button>
                 </div>
+                <div>
+
+                
                 <div className="home-cards">
                 {
                     shops.map(shop=>
@@ -51,11 +61,11 @@ export const HomeLanding = () => {
                             
                         </div>
                         <div className="home-card--content">
-                            <h2> {shop.shopName} </h2>
-                            <h3> Rs.579.00 </h3>
+                            <h2> {shop.name} </h2>
+                            <h3> {shop.price} </h3>
                             <div className="buttons">
-                                <button onClick={()=>navigate("/home/shop/"+shop.id)}>view </button>
-                                <button>Call</button>
+                                <button >Remove </button>
+                                <button>Update</button>
                             </div>
                         </div>
                     </div>
@@ -63,9 +73,30 @@ export const HomeLanding = () => {
                     })
                 }
                 </div>
+                
+                  
+              
+                </div>
             </div>
+            <button onClick={()=>navigate("/home/addstock")} className="add-product-button">
+                        +
+                    </button>
+        </>
+    )
+}
+const SellerDashBoard = () => {
+   
+    return (
+       <>
+       <Routes>
+            <Route path="/" element={<SellerHome/>} />
+           <Route path="/addstock" element={<AddStock/>} />
+           <Route path="staff" element={<Staff/>} />
+           <Route path="addstaff" element={<StaffRegister/>} />
+       </Routes>
+       
        </>
     )
 }
 
-export default HomeLanding
+export default SellerDashBoard

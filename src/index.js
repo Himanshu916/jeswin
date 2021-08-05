@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom";
-import AuthProvider from "./contexts/authContext"
+import AuthProvider from "./contexts/authContext";
+import CartProvider from "./contexts/cartContext"
 
 ReactDOM.render(
   <React.StrictMode>
   <AuthProvider>
+  <CartProvider>
   <Router>
     <App />
   </Router>
+  </CartProvider>
   </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -3,11 +3,11 @@ import { useAuth } from '../contexts/authContext'
 import { Route,Navigate } from "react-router-dom";
 const PrivateRoute = ({path,...props}) => {
 
-    const {user} = useAuth();
-
+    const {isUserLoggedIn} = useAuth();
+   
     return (
         <>
-       {Boolean(user) ? (<Route path={path} {...props} />) : (<Navigate state={{from:path}} replace to="/login" />) }
+       {isUserLoggedIn? (<Route path={path} {...props} />) : (<Navigate state={{from:path}} replace to="/login" />) }
        </>
     )
 }

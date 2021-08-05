@@ -1,8 +1,12 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 // import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useAuth } from '../contexts/authContext';
+import {useNavigate,useParams} from "react-router-dom"
 const Signup = () => {
+  const navigate=useNavigate();
+  const {category} = useParams()
+  console.log(category)
   const initialState = {
     fullName:"",
     email:"",
@@ -16,30 +20,29 @@ const [details,setDetails] = useState(initialState)
 const [error,setError] = useState("")
 const [loading,setLoading] = useState(false)
 const {fullName,email,phone,shopName,shopAddress,password,confirmPassword} = details;
-const {user,signUp} = useAuth();
+const {user,signUp,isUserLoggedIn} = useAuth();
 
-const submitHandler=async (e)=>
+
+
+useEffect(()=>
+{
+  if(isUserLoggedIn)
+  navigate("/home")
+
+},[isUserLoggedIn])
+
+const submitHandler=(e)=>
 {
 
     e.preventDefault()
     console.log(email,password,"to signup")
     if(password !== confirmPassword)
-    setError("Password does not match !");
-
-    try{
-      setError('')
-      setLoading(true)
-      await signUp(email,password);
-    }
-    catch
-    {
-      setError("Unable to signup")
-      }
-      setLoading(false)
-
+      setError("Password does not match !");
+      signUp(fullName,phone,shopName,shopAddress,email,password,category);
+   
 
 }
-console.log(error)
+
 
     return (
         <div >

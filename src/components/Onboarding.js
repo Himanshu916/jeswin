@@ -1,9 +1,11 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
 import {Link,useNavigate} from "react-router-dom"
+import {Outlet} from "react-router-dom"
 const Onboarding = () => {
     const navigate = useNavigate();
     return (
+        <>
         <div className="onboarding">
             <div style={{width:"100px",height:"100px",backgroundColor:"black",marginBottom:"1rem",alignSelf:"center",borderRadius:"50%"}}>
 
@@ -30,7 +32,7 @@ const Onboarding = () => {
                 <p className="para-light">
                     Leading B2B E-commerce platform
                 </p>
-                <Button onClick={()=>navigate("/signup")} className="big" style={{padding:"10px",backgroundColor:"var(--primary-color)"}} variant="contained" color="primary">
+                <Button onClick={()=>navigate("/category")} className="big" style={{padding:"10px",backgroundColor:"var(--primary-color)"}} variant="contained" color="primary">
                     Sign Up
                 </Button>
                 <div className="onboarding-bottom-third">
@@ -46,6 +48,8 @@ const Onboarding = () => {
                 </div>
             </div>
         </div>
+        <Outlet/>
+        </>
     )
 }
 

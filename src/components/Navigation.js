@@ -13,9 +13,9 @@ import { SideBarData } from '../utils/SideBarData';
        <>
             <div className="header">
                 <div>
-                <Link to="#">
+                
                     <MenuOutlinedIcon onClick={showSideBar} />
-                </Link>
+              
                    
                 </div>
                 <div style={{width:"30px",height:"30px",backgroundColor:"black",borderRadius:"500%"}} >
@@ -28,9 +28,9 @@ import { SideBarData } from '../utils/SideBarData';
             <nav className={sideBar ? "nav-menu active" : "nav-menu"}>
                 <ul onClick={showSideBar} className="nav-menu-items">
                     <li className="navbar-toggle">
-                        <Link className="menu-bars" to="#">
+                    {/* className="menu-bars" */}
                            <CloseIcon style={{color:"red"}} />
-                        </Link>
+                        
                     </li>
                     {
                         SideBarData.map((item,index)=>
