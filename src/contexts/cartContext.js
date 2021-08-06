@@ -57,7 +57,7 @@ function reducer(state,action)
          return {...state,itemsInCart:[...state.itemsInCart.map(item=>
             {
                 if(item.id===action.payload.id)
-                return {...item,quantity:item.quantity+1}
+                return {...item,quantity:Number(item.quantity)+1}
                 return item
             })]};
 
@@ -68,7 +68,7 @@ function reducer(state,action)
             return {...state,itemsInCart:[...state.itemsInCart.map(item=>
                 {
                     if(item.id===action.payload.id)
-                    return {...item,quantity:item.quantity-1}
+                    return {...item,quantity:Number(item.quantity)-1}
                     return item
                 })]};
 

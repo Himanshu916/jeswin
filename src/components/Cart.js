@@ -1,7 +1,7 @@
 import React from 'react'
 import {useCart} from "../contexts/cartContext"
 const Cart = () => {
-    const {itemsInCart} = useCart();
+    const {itemsInCart,dispatch} = useCart();
     console.log(itemsInCart,"cart items")
     return (
         <div>
@@ -24,9 +24,9 @@ const Cart = () => {
                            <div className="product-detail-quantity" >
                    
                      <div>
-                         <button>-</button>
+                         <button onClick={()=>dispatch({type:"Decrease",payload:cartItem})}>-</button>
                          {cartItem.quantity}
-                      <button>+</button>
+                      <button onClick={()=>dispatch({type:"Increase",payload:cartItem})}>+</button>
                      </div>
                  </div>
                        </div>
